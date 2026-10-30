@@ -181,7 +181,7 @@ async function uploadPhoto(req, res, session, listing) {
 }
 
 function removePhotoFiles(photo) {
-  if (!photo.base.startsWith('/media/uploads/')) return; // seed photos are shared, read-only assets
+  if (!photo.base.startsWith('/media/uploads/')) return; // seed and content photos live in the repository
   for (const w of photo.widths.split(',')) {
     try { unlinkSync(path.join(UPLOAD_DIR, `${path.basename(photo.base)}-${w}.${photo.ext}`)); } catch {}
   }

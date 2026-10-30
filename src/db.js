@@ -2,6 +2,7 @@ import { DatabaseSync } from 'node:sqlite';
 import path from 'node:path';
 import { DATA_DIR } from './config.js';
 import { seedListings } from './seed.js';
+import { importContent } from './content.js';
 
 export const db = new DatabaseSync(path.join(DATA_DIR, 'site.db'));
 
@@ -81,8 +82,12 @@ if (!listingCols.has('listing_firm')) db.exec("ALTER TABLE listings ADD COLUMN l
 // Georgia: a licensee-owned property needs a disclosure that the seller holds a license.
 if (!listingCols.has('licensee_owned')) db.exec('ALTER TABLE listings ADD COLUMN licensee_owned INTEGER NOT NULL DEFAULT 0');
 
-// Sample listings are for previews and tests only. Never seeded unless asked for.
-if (process.env.SEED_SAMPLES === '1' && db.prepare('SELECT COUNT(*) AS n FROM listings').get().n === 0) seedListings(db);
+// A fresh database starts from the real listings in content/listings.json.
+// Sample listings are for previews and tests only (SEED_SAMPLES=1).
+if (db.prepare('SELECT COUNT(*) AS n FROM listings').get().n === 0) {
+  if (process.env.SEED_SAMPLES === '1') seedListings(db);
+  else importContent(db);
+}
 
 export function photosFor(listingIds) {
   if (!listingIds.length) return new Map();

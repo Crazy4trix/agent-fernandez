@@ -4,7 +4,7 @@
   "title": "REALTOR®",
   "market": "Newnan, GA",
   "serviceArea": "Newnan, Coweta County and the surrounding communities",
-  "phone": "(000) 000-0000",
+  "phone": "(404) 993-6790",
   "email": "Kevin@jrbdreamteam.com",
   "futureEmail": "kevin@agentfernandez.com",
   "team": "JRB Dream Team",
@@ -21,8 +21,7 @@
   ],
   "siteUrl": "http://localhost:3000",
   "_notes": [
-    "TODO before launch: set phone to Kevin's direct number (it stays hidden while it contains 000-0000).",
-    "Georgia rule: brokerage name and phone must appear on every page. They are in the footer of every public page; keep brokerageLegalName and brokeragePhone filled in.",
+    "Georgia rule: brokerage name and phone must appear on every page (footer). Keep brokerageLegalName and brokeragePhone filled in.",
     "When kevin@agentfernandez.com is configured, set email to that address. siteUrl is overridden by the SITE_URL environment variable in production."
   ],
   "portrait": "/assets/media/kevin-fernandez"

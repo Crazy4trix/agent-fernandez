@@ -43,6 +43,9 @@ export function serveStatic(req, res, url) {
   } else if (url.pathname.startsWith('/media/seed/')) {
     file = resolveInside(path.join(PUBLIC, 'media/seed'), url.pathname.slice('/media/seed/'.length));
     immutable = true;
+  } else if (url.pathname.startsWith('/media/listings/')) {
+    file = resolveInside(path.join(PUBLIC, 'media/listings'), url.pathname.slice('/media/listings/'.length));
+    immutable = true;
   } else if (url.pathname.startsWith('/media/uploads/')) {
     file = resolveInside(UPLOAD_DIR, url.pathname.slice('/media/uploads/'.length));
     immutable = true; // upload filenames are random and never reused
