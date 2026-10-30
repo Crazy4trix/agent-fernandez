@@ -59,8 +59,13 @@ await test('every public page loads with one h1, a title and no console errors',
     assert(res.status() === 200, `${url} returned ${res.status()}`);
     assert(await page.locator('h1').count() === 1, `${url} should have exactly one h1`);
     assert((await page.title()).includes('Agent Fernandez'), `${url} title lacks brand: ${await page.title()}`);
+    // Georgia: brokerage name and phone on every viewable page.
+    const brokerage = await page.locator('.footer-brokerage').textContent();
+    assert(brokerage.includes('Real Broker, LLC') && brokerage.includes('(855) 450-0442'), `${url} lacks brokerage name/phone`);
   }
   assert(!errors.length, `console errors: ${errors.join(' | ')}`);
+  await page.goto(BASE + '/does-not-exist');
+  assert((await page.locator('.footer-brokerage').textContent()).includes('(855) 450-0442'), '404 page lacks brokerage phone');
   await ctx.close();
 });
 
@@ -87,7 +92,7 @@ await test('branding: wordmark, professional name and brokerage identification',
   const about = await page.locator('.about').textContent();
   assert(about.includes('Kevin Fernandez'), 'About should name Kevin Fernandez');
   const footer = await page.locator('.site-footer').textContent();
-  for (const s of ['Kevin Fernandez', 'JRB Dream Team', 'Real Brokerage', 'Equal Housing Opportunity', 'Kevin@jrbdreamteam.com']) {
+  for (const s of ['Kevin Fernandez', 'JRB Dream Team', 'Real Brokerage', 'Equal Housing Opportunity', 'Kevin@jrbdreamteam.com', 'Georgia license 456243', 'H-66836', '800 Battery Ave SE']) {
     assert(footer.includes(s), `footer lacks "${s}"`);
   }
   await ctx.close();
@@ -388,6 +393,8 @@ await test('create a listing: validation, then save as draft', async () => {
   await admin.fill('#f-baths', '2.5');
   await admin.fill('#f-headline', 'A test home <script>alert(1)</script>');
   await admin.fill('#f-description', 'First paragraph.\n\nSecond paragraph.');
+  await admin.fill('#f-listing_firm', 'Example Realty Group');
+  await admin.check('#f-licensee_owned');
   await admin.click('button:has-text("Create listing")');
   await admin.waitForURL(/\/admin\/listings\/\d+\?done=created/);
   const res = await fetch(BASE + '/listings/101-test-avenue');
@@ -428,6 +435,10 @@ await test('publish a listing; content is escaped on the public page', async () 
   assert((await page.locator('.lede').textContent()).includes('<script>'), 'headline should show as text');
   assert(!alerted, 'script executed');
   assert(await page.locator('.listing-main > p').count() >= 2, 'paragraphs');
+  const disclosure = await page.locator('.disclosure').textContent();
+  assert(disclosure.includes('Listing courtesy of Example Realty Group') && disclosure.includes('holds a Georgia real estate license'), 'listing disclosures missing');
+  await page.goto(BASE + '/listings');
+  assert((await page.locator('.card', { hasText: '101 Test Avenue' }).textContent()).includes('Listing courtesy of Example Realty Group'), 'card disclosure missing');
   await page.screenshot({ path: path.join(SHOTS, 'new-listing.png'), fullPage: true });
 });
 

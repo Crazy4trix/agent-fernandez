@@ -16,6 +16,14 @@ export function factsLine(l) {
   return parts.join(', ');
 }
 
+// Georgia advertising disclosures that must travel with every ad for a listing.
+export function disclosures(l) {
+  const lines = [];
+  if (l.listing_firm) lines.push(`Listing courtesy of ${l.listing_firm}.`);
+  if (l.licensee_owned) lines.push('The seller holds a Georgia real estate license.');
+  return lines;
+}
+
 export const place = (l) => [l.neighborhood, l.city].filter(Boolean).join(', ');
 
 export function photoUrl(p, width) {
@@ -56,6 +64,7 @@ export function listingCard(l, { sizes, headingLevel = 3, priority = false } = {
       </div>
       <p class="card-price">${money(l.price)}</p>
       <p class="card-facts">${factsLine(l)}</p>
+      ${disclosures(l).length ? html`<p class="card-disclosure">${disclosures(l).join(' ')}</p>` : ''}
     </div>
   </article>`;
 }

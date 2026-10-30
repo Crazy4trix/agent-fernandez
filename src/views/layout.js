@@ -97,6 +97,7 @@ function footer() {
     <div class="footer-brand">
       ${wordmark('p')}
       <p>${site.agentName}, ${site.title}<br>${site.team} at ${site.brokerage}<br>Serving ${site.market}</p>
+      <p class="footer-brokerage">${site.brokerageLegalName || site.brokerage}${bPhone ? html` <span class="sep">/</span> <a href="${tel(bPhone)}">${bPhone}</a>` : ''}</p>
     </div>
     <div>
       <h2 class="footer-heading">Contact Kevin</h2>
@@ -116,7 +117,7 @@ function footer() {
   </div>
   <div class="wrap footer-legal">
     <p class="brokerage">
-      ${site.brokerageLegalName || site.brokerage}${bPhone ? html`, ${bPhone}` : ''}${site.brokerageAddress ? html`, ${site.brokerageAddress}` : ''}${site.brokerageLicense ? html`. Brokerage license ${site.brokerageLicense}` : ''}.
+      ${site.brokerageLegalName || site.brokerage}${bPhone ? html`, ${bPhone}` : ''}${site.brokerageAddress ? html`, ${site.brokerageAddress}` : ''}${site.brokerageLicense ? html`. Georgia firm license ${site.brokerageLicense}` : ''}.
       ${site.agentName}${site.license ? html`, Georgia license ${site.license}` : ''}, is a licensed real estate salesperson affiliated with ${site.brokerage} and a member of ${site.team}.
     </p>
     <p>Equal Housing Opportunity. Information is deemed reliable but not guaranteed and should be independently verified.</p>

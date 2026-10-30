@@ -78,6 +78,8 @@ export function validateListing(body) {
     headline: str(body.headline, 160),
     description: str(body.description, 8000),
     features: str(body.features, 2000),
+    listing_firm: str(body.listing_firm, 160),
+    licensee_owned: body.licensee_owned === '1' ? 1 : 0,
     published: body.published === '1' ? 1 : 0,
     featured: body.featured === '1' ? 1 : 0,
   };

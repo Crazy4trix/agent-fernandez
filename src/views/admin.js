@@ -122,6 +122,11 @@ export function listingFormPage({ session, listing, values, errors = {}, newCoun
           <div class="check"><input type="checkbox" id="f-featured" name="featured" value="1" ${Number(v.featured) ? html`checked` : ''}><label for="f-featured">Featured on the home page</label></div>
         </fieldset>
         <fieldset>
+          <legend>Disclosures</legend>
+          ${field({ name: 'listing_firm', label: 'Listing firm, if not Real Broker, LLC', value: v.listing_firm, error: errors.listing_firm, hint: 'Georgia requires the listing firm’s exact name when you advertise another firm’s listing. Shown on the listing, its card and the home page.' })}
+          <div class="check"><input type="checkbox" id="f-licensee_owned" name="licensee_owned" value="1" ${Number(v.licensee_owned) ? html`checked` : ''}><label for="f-licensee_owned">The seller holds a real estate license (your broker’s written consent is on file)</label></div>
+        </fieldset>
+        <fieldset>
           <legend>Particulars</legend>
           <div class="field-row three">
             ${field({ name: 'beds', label: 'Bedrooms', value: v.beds, error: errors.beds, inputmode: 'numeric' })}
@@ -139,6 +144,7 @@ export function listingFormPage({ session, listing, values, errors = {}, newCoun
           ${field({ name: 'description', label: 'Description', type: 'textarea', rows: 8, value: v.description, error: errors.description, hint: 'Leave a blank line between paragraphs.' })}
           ${field({ name: 'features', label: 'Features', type: 'textarea', rows: 6, value: v.features, error: errors.features, hint: 'One per line.' })}
         </fieldset>
+        <p class="fine">Your managing broker must approve each listing advertisement before you publish it.</p>
         <div class="form-actions"><button class="button" type="submit">${isNew ? 'Create listing' : 'Save changes'}</button></div>
       </form>
 

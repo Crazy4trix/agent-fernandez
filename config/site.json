@@ -10,10 +10,10 @@
   "team": "JRB Dream Team",
   "brokerage": "Real Brokerage",
   "brokerageLegalName": "Real Broker, LLC",
-  "brokeragePhone": "(000) 000-0000",
-  "brokerageAddress": "",
-  "license": "",
-  "brokerageLicense": "",
+  "brokeragePhone": "(855) 450-0442",
+  "brokerageAddress": "800 Battery Ave SE, Suite 300, Atlanta, GA 30339",
+  "license": "456243",
+  "brokerageLicense": "H-66836",
   "responseTime": "within one business day",
   "bio": [
     "I’m Kevin Fernandez, a REALTOR® with the JRB Dream Team at Real Brokerage, helping buyers and sellers in Newnan and across Coweta County.",
@@ -21,7 +21,9 @@
   ],
   "siteUrl": "http://localhost:3000",
   "_notes": [
-    "TODO before launch: phone, brokeragePhone, brokerageAddress, license and brokerageLicense must be real values. Confirm brokerageLegalName and the exact required disclosure wording with your managing broker.",
+    "TODO before launch: set phone to Kevin's direct number (it stays hidden while it contains 000-0000).",
+    "Georgia rule: brokerage name and phone must appear on every page. They are in the footer of every public page; keep brokerageLegalName and brokeragePhone filled in.",
     "When kevin@agentfernandez.com is configured, set email to that address. siteUrl is overridden by the SITE_URL environment variable in production."
-  ]
+  ],
+  "portrait": "/assets/media/kevin-fernandez"
 }

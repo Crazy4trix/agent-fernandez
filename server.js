@@ -189,7 +189,7 @@ function removePhotoFiles(photo) {
 
 function saveListing(id, data) {
   const cols = ['address', 'neighborhood', 'city', 'status', 'property_type', 'price', 'beds', 'baths', 'sqft', 'lot',
-    'year_built', 'headline', 'description', 'features', 'published', 'featured'];
+    'year_built', 'headline', 'description', 'features', 'listing_firm', 'licensee_owned', 'published', 'featured'];
   const vals = cols.map((c) => data[c]);
   if (id) {
     db.prepare(`UPDATE listings SET ${cols.map((c) => `${c} = ?`).join(', ')}, is_sample = 0, updated_at = datetime('now') WHERE id = ?`).run(...vals, id);

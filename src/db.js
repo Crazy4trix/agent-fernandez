@@ -74,8 +74,15 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS inquiries_status ON inquiries (status, created_at);
 `);
 
-const count = db.prepare('SELECT COUNT(*) AS n FROM listings').get().n;
-if (count === 0) seedListings(db);
+// Columns added after the first release. ALTER TABLE ... ADD COLUMN is safe to retry.
+const listingCols = new Set(db.prepare('PRAGMA table_info(listings)').all().map((c) => c.name));
+// Georgia: marketing another firm's listing requires naming that firm.
+if (!listingCols.has('listing_firm')) db.exec("ALTER TABLE listings ADD COLUMN listing_firm TEXT NOT NULL DEFAULT ''");
+// Georgia: a licensee-owned property needs a disclosure that the seller holds a license.
+if (!listingCols.has('licensee_owned')) db.exec('ALTER TABLE listings ADD COLUMN licensee_owned INTEGER NOT NULL DEFAULT 0');
+
+// Sample listings are for previews and tests only. Never seeded unless asked for.
+if (process.env.SEED_SAMPLES === '1' && db.prepare('SELECT COUNT(*) AS n FROM listings').get().n === 0) seedListings(db);
 
 export function photosFor(listingIds) {
   if (!listingIds.length) return new Map();

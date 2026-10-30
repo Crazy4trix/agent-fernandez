@@ -5,8 +5,15 @@ import { BUYER_BUDGETS, TIMELINES, FINANCING } from '../forms.js';
 import { layout, configured, tel, brokerageLine } from './layout.js';
 import { emailEnabled } from '../email.js';
 import {
-  money, factsLine, place, picture, photoUrl, noPhoto, listingCard, particulars, field, antiSpam, formAlert,
+  money, factsLine, place, picture, photoUrl, noPhoto, listingCard, particulars, field, antiSpam, formAlert, disclosures,
 } from './components.js';
+
+function portrait({ sizes, priority = false, className = 'portrait' }) {
+  if (!site.portrait) return '';
+  return html`<img class="${className}" src="${site.portrait}-960.webp"
+    srcset="${site.portrait}-480.webp 480w, ${site.portrait}-960.webp 960w" sizes="${sizes}"
+    width="960" height="1200" alt="${site.agentName}" decoding="async" ${priority ? html`fetchpriority="high"` : html`loading="lazy"`}>`;
+}
 
 const HERO_SIZES = '(min-width: 1440px) 1360px, calc(100vw - 32px)';
 
@@ -62,11 +69,11 @@ export function homePage({ featured, sold, stamp }) {
   const phone = configured(site.phone);
 
   const body = html`
-  <section class="hero" aria-labelledby="hero-title">
+  <section class="hero ${heroPhoto ? '' : 'hero-personal'}" aria-labelledby="hero-title">
     <div class="wrap">
       ${heroPhoto ? html`<figure class="hero-plate">
         <a href="/listings/${hero.slug}" tabindex="-1" aria-hidden="true">${picture(heroPhoto, { sizes: HERO_SIZES, priority: true, className: 'hero-img' })}</a>
-      </figure>` : ''}
+      </figure>` : site.portrait ? html`<figure class="hero-portrait">${portrait({ sizes: '(min-width: 900px) 34vw, 100vw', priority: true, className: 'hero-img' })}</figure>` : ''}
       <div class="hero-text">
         <h1 id="hero-title">Newnan real estate, represented personally.</h1>
         <div class="hero-side">
@@ -81,6 +88,7 @@ export function homePage({ featured, sold, stamp }) {
         <span class="hero-caption-addr">${hero.address}</span>
         <span>${[place(hero), factsLine(hero)].filter(Boolean).join(', ')}${hero.is_sample ? ' (sample listing)' : ''}</span>
         <span class="hero-caption-price">${money(hero.price)}</span>
+        ${disclosures(hero).length ? html`<span class="hero-caption-disclosure">${disclosures(hero).join(' ')}</span>` : ''}
       </a>` : ''}
     </div>
   </section>
@@ -117,7 +125,10 @@ export function homePage({ featured, sold, stamp }) {
 
   <section class="section about" aria-labelledby="about-title">
     <div class="wrap about-grid">
-      <h2 id="about-title">About Kevin</h2>
+      <div class="about-side">
+        <h2 id="about-title">About Kevin</h2>
+        ${heroPhoto && site.portrait ? html`<figure class="about-portrait">${portrait({ sizes: '(min-width: 900px) 24vw, 70vw' })}</figure>` : ''}
+      </div>
       <div class="about-body">
         ${site.bio.map((p) => html`<p>${p}</p>`)}
         <p class="about-contact">
@@ -241,6 +252,7 @@ export function listingPage({ listing: l, stamp, values = {}, errors = {} }) {
         <p class="listing-price">${money(l.price)}</p>
         <p class="ask-jump"><a href="#ask-title">${l.status === 'sold' ? 'Ask about similar homes' : 'Ask about this home'}</a></p>
       </header>
+      ${disclosures(l).length ? html`<div class="disclosure">${disclosures(l).map((d) => html`<p>${d}</p>`)}</div>` : ''}
       ${l.is_sample ? html`<p class="sample-note">This is a sample listing shown for design preview. It is not a real property for sale.</p>` : ''}
 
       <div class="listing-body">
@@ -251,7 +263,9 @@ export function listingPage({ listing: l, stamp, values = {}, errors = {} }) {
             <ul class="features">${l.features.split('\n').map((f) => f.trim()).filter(Boolean).map((f) => html`<li>${f}</li>`)}</ul>` : ''}
           <h2 class="minor">Particulars</h2>
           ${particulars(l)}
-          <p class="fine">Listed by ${site.agentName}, ${site.team}, ${site.brokerage}. Information deemed reliable but not guaranteed.</p>
+          <p class="fine">${l.listing_firm
+            ? html`Listing courtesy of ${l.listing_firm}. Advertised by ${site.agentName}, ${site.team}, ${site.brokerageLegalName}, ${site.brokeragePhone}.`
+            : html`Listed by ${site.agentName}, ${site.team}, ${site.brokerageLegalName}, ${site.brokeragePhone}.`} Information deemed reliable but not guaranteed.</p>
         </div>
         <aside class="listing-aside" aria-labelledby="ask-title">
           <h2 id="ask-title">${l.status === 'sold' ? 'Looking for something similar?' : 'Ask about this home'}</h2>
