@@ -1,0 +1,18 @@
+{
+  "name": "agent-fernandez",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Agent Fernandez real estate website with listing management and buyer/seller inquiries.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server.js",
+    "create-admin": "node --disable-warning=ExperimentalWarning scripts/create-admin.js",
+    "test": "python3 .claude/skills/webapp-testing/scripts/with_server.py --server \"rm -rf .test-data && PORT=4310 DATA_DIR=.test-data ADMIN_EMAIL=test@example.com ADMIN_PASSWORD=correct-horse-battery-staple npm start\" --port 4310 -- node tests/e2e.mjs"
+  },
+  "devDependencies": {
+    "axe-core": "^4.10.2"
+  }
+}

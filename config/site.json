@@ -1,0 +1,27 @@
+{
+  "brand": "Agent Fernandez",
+  "agentName": "Kevin Fernandez",
+  "title": "REALTOR®",
+  "market": "Newnan, GA",
+  "serviceArea": "Newnan, Coweta County and the surrounding communities",
+  "phone": "(000) 000-0000",
+  "email": "Kevin@jrbdreamteam.com",
+  "futureEmail": "kevin@agentfernandez.com",
+  "team": "JRB Dream Team",
+  "brokerage": "Real Brokerage",
+  "brokerageLegalName": "Real Broker, LLC",
+  "brokeragePhone": "(000) 000-0000",
+  "brokerageAddress": "",
+  "license": "",
+  "brokerageLicense": "",
+  "responseTime": "within one business day",
+  "bio": [
+    "I’m Kevin Fernandez, a REALTOR® with the JRB Dream Team at Real Brokerage, helping buyers and sellers in Newnan and across Coweta County.",
+    "I work with a small number of clients at a time, so you get my full attention and my direct number. For buyers, that means honest opinions on every home we see, including the ones to walk away from. For sellers, it means careful preparation, photography that does the home justice, and pricing grounded in what has actually sold nearby."
+  ],
+  "siteUrl": "http://localhost:3000",
+  "_notes": [
+    "TODO before launch: phone, brokeragePhone, brokerageAddress, license and brokerageLicense must be real values. Confirm brokerageLegalName and the exact required disclosure wording with your managing broker.",
+    "When kevin@agentfernandez.com is configured, set email to that address. siteUrl is overridden by the SITE_URL environment variable in production."
+  ]
+}
