@@ -5,9 +5,9 @@
     "neighborhood": "",
     "city": "Newnan, GA 30263",
     "status": "active",
-    "published": 0,
+    "published": 1,
     "featured": 1,
-    "price": 0,
+    "price": 215000,
     "beds": 4,
     "baths": 1,
     "sqft": null,
@@ -20,11 +20,31 @@
     "listing_firm": "",
     "licensee_owned": 0,
     "photos": [
-      { "file": "photo-1", "widths": "640,1200", "alt": "Front of 8 Westgate Park Drive: a white painted-brick ranch with black shutters and a covered entry" },
-      { "file": "photo-2", "widths": "640,1200", "alt": "The house from the street, with its driveway and front lawn" },
-      { "file": "photo-3", "widths": "640,1200,2000", "alt": "Living room with new wood-look flooring, light gray paneled walls and the front door" },
-      { "file": "photo-4", "widths": "640,1200,2000", "alt": "Living room opening to the kitchen and French doors to the back deck" },
-      { "file": "photo-5", "widths": "640,1200,2000", "alt": "Kitchen with white shaker cabinets, new countertops, open shelving and French doors" }
+      {
+        "file": "photo-1",
+        "widths": "640,1200",
+        "alt": "Front of 8 Westgate Park Drive: a white painted-brick ranch with black shutters and a covered entry"
+      },
+      {
+        "file": "photo-2",
+        "widths": "640,1200",
+        "alt": "The house from the street, with its driveway and front lawn"
+      },
+      {
+        "file": "photo-3",
+        "widths": "640,1200,2000",
+        "alt": "Living room with new wood-look flooring, light gray paneled walls and the front door"
+      },
+      {
+        "file": "photo-4",
+        "widths": "640,1200,2000",
+        "alt": "Living room opening to the kitchen and French doors to the back deck"
+      },
+      {
+        "file": "photo-5",
+        "widths": "640,1200,2000",
+        "alt": "Kitchen with white shaker cabinets, new countertops, open shelving and French doors"
+      }
     ]
   }
 ]
